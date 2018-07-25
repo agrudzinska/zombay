@@ -87,6 +87,8 @@ public:
 
 	void setVisible(bool _visible);
 
+	void move(const sf::Vector2f &pos);
+
 	template <typename T, typename... Targs>
 	std::shared_ptr<T> addComponent(Targs... params) {
 		static_assert(std::is_base_of<Component, T>::value, "T != component");

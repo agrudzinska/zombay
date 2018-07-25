@@ -1,5 +1,6 @@
 #include "prefabs.h"
 #include "engine.h"
+#include "game.h"
 #include <LevelSystem.h>
 #include <system_resources.h>
 #include "components/cmp_text.h"
@@ -13,12 +14,13 @@ using namespace sf;
 shared_ptr<Entity> create_player()
 {
 	auto player = Engine::GetActiveScene()->makeEntity();
-	player->setPosition(Vector2f(32.0f,32.0f));
-	auto s = player->addComponent<ShapeComponent>();
-	s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
-	s->getShape().setFillColor(Color(0, 255, 0));
-	s->getShape().setOrigin(20.f, 15.f);
-	player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
+	player->setPosition(Vector2f(game_width /2, game_heigth / 2));
+	auto s = player->addComponent<SpriteComponent>();
+	auto tex = Resources::get<Texture>("character.png");
+	s->setTexture(tex);
+	s->getSprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
+	s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
+	player->addComponent<PlayerPhysicsComponent>();
 
 	return player;
 	
@@ -34,6 +36,7 @@ shared_ptr<Entity> create_button(string text)
 	s->getShape().setOrigin(s->getShape().getLocalBounds().width / 2, s->getShape().getLocalBounds().height / 2);
 
 	auto t = button->addComponent<TextComponent>(text);
+	t->getText()->setOrigin(500.0f / 2 - 13.0f, t->getText()->getLocalBounds().height / 2 + 14.0f);
 	//t->getText()->setOrigin(s->getShape().getLocalBounds().width / 2, s->getShape().getLocalBounds().height / 2);
 	t->getText()->setColor(Color(255, 255, 255));
 

@@ -30,14 +30,14 @@ void Loading_update(float dt, const Scene* const scn) {
 }
 void Loading_render() {
   // cout << "Eng: Loading Screen Render\n";
-  static CircleShape octagon(80, 8);
+  static CircleShape octagon(40, 8);
   octagon.setOrigin(80, 80);
   octagon.setRotation(loadingspinner);
   octagon.setPosition(Vcast<float>(Engine::getWindowSize()) * .5f);
   octagon.setFillColor(Color(255,255,255,min(255.f,40.f*loadingTime)));
-  static Text t("Loading", *Resources::get<sf::Font>("RobotoMono-Regular.ttf"));
+  static Text t("Loading", *Resources::get<sf::Font>("Raleway-Regular.ttf"));
   t.setFillColor(Color(255,255,255,min(255.f,40.f*loadingTime)));
-  t.setPosition(Vcast<float>(Engine::getWindowSize()) * Vector2f(0.4f,0.3f));
+  t.setPosition(Vcast<float>(Engine::getWindowSize()) * Vector2f(0.45f,0.2f));
   Renderer::queue(&t);
   Renderer::queue(&octagon);
 }

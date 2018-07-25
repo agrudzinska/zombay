@@ -5,5 +5,8 @@
 #include "scenes/scene_menu.h"
 #include "prefabs.h"
 
+static uint16_t game_width = 1280;
+static uint16_t game_heigth = 720;
+
 extern MenuScene menu;
 extern Level1Scene level1;
