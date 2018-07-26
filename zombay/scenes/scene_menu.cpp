@@ -29,6 +29,10 @@ void MenuScene::Load() {
   _btn_Start = create_button("start.png");
   _btns.push_back(_btn_Start);
 
+  _btn_HowTo.reset();
+  _btn_HowTo = create_button("how.png");
+  _btns.push_back(_btn_HowTo);
+
   _btn_Options.reset();
   _btn_Options = create_button("options.png");
   _btns.push_back(_btn_Options);

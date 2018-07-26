@@ -5,6 +5,7 @@
 #include "cmp_physics.h"
 #include "engine.h"
 #include "../prefabs.h"
+#include <iostream>
 #include "system_resources.h"
 
 using namespace std;
@@ -32,8 +33,11 @@ void PlayerPhysicsComponent::update(double dt) {
   if (Keyboard::isKeyPressed(Keyboard::Down)) {
 	  direction.y += 1.0f;
   }
-  move((float)dt*direction*_groundspeed);
+  move(normalize(direction) * _groundspeed * (float)dt);
+  //_parent->setPosition((float)dt*direction*_groundspeed);
   //if(_parent->get_components<PhysicsComponent>()[0]->getVelocity().x < _maxVelocity.x)
+  //_parent->get_components<PhysicsComponent>()[0]->impulse(direction);
+  //_parent->get_components<PhysicsComponent>()[0]->impulse({ (float)(dt * _groundspeed), 0});
   //_parent->get_components<PhysicsComponent>()[0]->setVelocity(Vector2f(normalize(direction) * speed));
 
 }
@@ -41,6 +45,12 @@ void PlayerPhysicsComponent::update(double dt) {
 PlayerPhysicsComponent::PlayerPhysicsComponent(Entity* p)
     : Component(p) {
   _maxVelocity = Vector2f(200.f, 400.f);
-  _groundspeed = 30.f;
+  _groundspeed = 160.f;
 
+}
+
+void PlayerPhysicsComponent::move(const Vector2f &p)
+{
+	auto new_pos = _parent->getPosition() + p;
+	_parent->setPosition(new_pos);
 }

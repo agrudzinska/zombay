@@ -47,8 +47,6 @@ bool Entity::isAlive() const { return _alive; }
 
 void Entity::setAlive(bool _alive) { Entity::_alive = _alive; }
 
-void Entity::move(const sf::Vector2f &pos) { _position += pos; }
-
 void Entity::setForDelete() {
 	_fordeletion = true;
 	_alive = false;

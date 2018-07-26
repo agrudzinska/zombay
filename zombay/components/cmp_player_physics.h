@@ -11,6 +11,6 @@ public:
   void update(double dt) override;
   void render() override {};
   explicit PlayerPhysicsComponent(Entity* p);
-
+  void move(const sf::Vector2f&);
   PlayerPhysicsComponent() = delete;
 };

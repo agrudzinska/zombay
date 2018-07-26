@@ -13,7 +13,7 @@ public:
 
 private:
 	std::shared_ptr<Entity> _btn_Start;
-
+	std::shared_ptr<Entity> _btn_HowTo;
 	std::shared_ptr<Entity> _btn_Options;
 	std::shared_ptr<Entity> _btn_Quit;
 	// All buttons
