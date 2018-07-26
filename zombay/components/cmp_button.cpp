@@ -5,8 +5,8 @@
 using namespace std;
 using namespace sf;
 
-ButtonComponent::ButtonComponent(Entity* p, shared_ptr<ShapeComponent> s, shared_ptr<TextComponent> t)
-	: _shapeCmp(s), _textCmp(t), Component(p)
+ButtonComponent::ButtonComponent(Entity* p, shared_ptr<ShapeComponent> s, shared_ptr<SpriteComponent> sp)
+	: _shapeCmp(s), _spriteCmp(sp), Component(p)
 {
 	// Set the initial style
 	setHighlight(false, true);

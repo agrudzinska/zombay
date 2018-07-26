@@ -16,7 +16,7 @@ shared_ptr<Entity> create_player()
 	auto player = Engine::GetActiveScene()->makeEntity();
 	player->setPosition(Vector2f(game_width /2, game_heigth / 2));
 	auto s = player->addComponent<SpriteComponent>();
-	auto tex = Resources::get<Texture>("character.png");
+	auto tex = Resources::get<Texture>("char.png");
 	s->setTexture(tex);
 	s->getSprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
 	s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
@@ -26,7 +26,7 @@ shared_ptr<Entity> create_player()
 	
 }
 
-shared_ptr<Entity> create_button(string text)
+shared_ptr<Entity> create_button(string path)
 {
 	auto button = Engine::GetActiveScene()->makeEntity();
 	button->addTag("button");
@@ -35,12 +35,14 @@ shared_ptr<Entity> create_button(string text)
 	s->setShape<RectangleShape>(Vector2f(250.0f, 34.0f));
 	s->getShape().setOrigin(s->getShape().getLocalBounds().width / 2, s->getShape().getLocalBounds().height / 2);
 
-	auto t = button->addComponent<TextComponent>(text);
-	t->getText()->setOrigin(500.0f / 2 - 13.0f, t->getText()->getLocalBounds().height / 2 + 14.0f);
+	auto sp = button->addComponent<SpriteComponent>();
+	auto img = Resources::get<Texture>(path);
+	sp->setTexture(img);
+	sp->getSprite().setTextureRect(sf::IntRect(0, 0, 126, 43));
+	sp->getSprite().setOrigin(sp->getSprite().getLocalBounds().width / 2, sp->getSprite().getLocalBounds().height / 2);
 	//t->getText()->setOrigin(s->getShape().getLocalBounds().width / 2, s->getShape().getLocalBounds().height / 2);
-	t->getText()->setColor(Color(255, 255, 255));
 
-	button->addComponent<ButtonComponent>(s, t);
+	button->addComponent<ButtonComponent>(s, sp);
 
 	return button;
 }

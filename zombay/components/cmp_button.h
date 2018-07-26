@@ -9,11 +9,11 @@ class ButtonComponent : public Component
 private:
 	bool _isHighlited = false;
 	std::shared_ptr<ShapeComponent> _shapeCmp;
-	std::shared_ptr<TextComponent> _textCmp;
+	std::shared_ptr<SpriteComponent> _spriteCmp;
 
 public:
 	ButtonComponent() = delete;
-	explicit ButtonComponent(Entity* p, std::shared_ptr<ShapeComponent>, std::shared_ptr<TextComponent>);
+	explicit ButtonComponent(Entity* p, std::shared_ptr<ShapeComponent>, std::shared_ptr<SpriteComponent>);
 	void update(double dt) override;
 	void render() override {}
 	void setHighlight(bool, bool force = false);

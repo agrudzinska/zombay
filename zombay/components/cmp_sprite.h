@@ -9,11 +9,13 @@ class SpriteComponent : public Component {
 protected:
 	std::shared_ptr<sf::Sprite> _sprite;
 	std::shared_ptr<sf::Texture> _tex;
+	//std::string _string;
 
 public:
 	SpriteComponent() = delete;
 
 	explicit SpriteComponent(Entity* p);
+	//explicit SpriteComponent(Entity* p, const std::string& str = "");
 	void update(double dt) override;
 	void render() override;
 

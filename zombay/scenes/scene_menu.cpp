@@ -26,15 +26,15 @@ void MenuScene::Load() {
   _btns.clear();
 
   _btn_Start.reset();
-  _btn_Start = create_button("New game");
+  _btn_Start = create_button("start.png");
   _btns.push_back(_btn_Start);
 
   _btn_Options.reset();
-  _btn_Options = create_button("Options");
+  _btn_Options = create_button("options.png");
   _btns.push_back(_btn_Options);
 
   _btn_Quit.reset();
-  _btn_Quit = create_button("Quit");
+  _btn_Quit = create_button("quit.png");
   _btns.push_back(_btn_Quit);
 
   // Set buttons position

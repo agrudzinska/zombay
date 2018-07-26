@@ -1,10 +1,17 @@
 #include "cmp_sprite.h"
 #include "system_renderer.h"
+#include "system_resources.h"
 
 using namespace std;
 
 SpriteComponent::SpriteComponent(Entity* p)
 	: Component(p), _sprite(make_shared<sf::Sprite>()) {}
+
+/*SpriteComponent::SpriteComponent(Entity* p, const std::string& str)
+	: Component(p), _string(str), _sprite(make_shared<sf::Sprite>()) {
+		_sprite->getTexture
+}
+*/
 
 void SpriteComponent::update(double dt) {
 	_sprite->setPosition(_parent->getPosition());
