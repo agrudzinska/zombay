@@ -6,6 +6,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include "system_resources.h"
 #include <iostream>
+#include <SFML/Audio.hpp>
 
 using namespace std;
 using namespace sf;
@@ -69,6 +70,9 @@ void MenuScene::Update(const double& dt) {
 
 	if (_clickCooldown >= 0.0f) _clickCooldown -= dt;
 
+	//buffer.loadFromFile("boing_x.wav");
+	_buffer = *(Resources::get<SoundBuffer>("boing_x.wav"));
+	_sound.setBuffer(_buffer);
 	if (_clickCooldown < 0.0f)
 	{
 		if (_btn_Start->get_components<ButtonComponent>()[0]->isSelected())
@@ -79,6 +83,9 @@ void MenuScene::Update(const double& dt) {
 		if (_btn_HowTo->get_components<ButtonComponent>()[0]->isSelected())
 		{
 			Engine::ChangeScene(&howTo);
+			_sound.play();
+			
+
 		}
 
 		if (_btn_Options->get_components<ButtonComponent>()[0]->isSelected())

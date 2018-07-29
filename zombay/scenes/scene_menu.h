@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine.h"
+#include "SFML\Audio.hpp"
 
 class MenuScene : public Scene {
 public:
@@ -18,6 +19,9 @@ private:
 	std::shared_ptr<Entity> _btn_Quit;
 	// All buttons
 	std::vector<std::shared_ptr<Entity>> _btns;
+
+	sf::Sound _sound;
+	sf::SoundBuffer _buffer;
 
 	float _clickCooldown;
 };
