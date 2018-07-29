@@ -76,6 +76,11 @@ void MenuScene::Update(const double& dt) {
 			Engine::ChangeScene(&level1);
 		}
 
+		if (_btn_HowTo->get_components<ButtonComponent>()[0]->isSelected())
+		{
+			Engine::ChangeScene(&howTo);
+		}
+
 		if (_btn_Options->get_components<ButtonComponent>()[0]->isSelected())
 		{
 			Engine::ChangeScene(&level1);

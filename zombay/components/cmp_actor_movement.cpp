@@ -1,11 +1,15 @@
 #include "cmp_actor_movement.h"
 #include <LevelSystem.h>
 #include <engine.h>
+#include "../prefabs.h"
 #include <iostream>
 using namespace sf;
 using namespace std;
 
-void ActorMovementComponent::update(double dt) {}
+void ActorMovementComponent::update(double dt) {
+	Vector2f direction = normalize(_player->getPosition() - _parent->getPosition());
+	move(normalize(direction) * _speed * (float)dt);
+}
 
 ActorMovementComponent::ActorMovementComponent(Entity* p)
     : _speed(100.0f), Component(p) {}

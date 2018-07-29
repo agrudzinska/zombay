@@ -12,6 +12,10 @@ using namespace std;
 using namespace sf;
 using namespace Physics;
 
+bool PlayerPhysicsComponent::isValidMove(Vector2f pos) {
+	return (ls::getTileAt(pos) != ls::WALL);
+}
+
 void PlayerPhysicsComponent::update(double dt) {
 
   const auto pos = _parent->getPosition();
@@ -19,7 +23,6 @@ void PlayerPhysicsComponent::update(double dt) {
   auto speed = _groundspeed;
 
   Vector2f direction = { 0.0f, 0.0f };
-
   //handle controls
   if (Keyboard::isKeyPressed(Keyboard::Left)) {
 	  direction.x -= 1.0f;
@@ -33,12 +36,11 @@ void PlayerPhysicsComponent::update(double dt) {
   if (Keyboard::isKeyPressed(Keyboard::Down)) {
 	  direction.y += 1.0f;
   }
-  move(normalize(direction) * _groundspeed * (float)dt);
-  //_parent->setPosition((float)dt*direction*_groundspeed);
-  //if(_parent->get_components<PhysicsComponent>()[0]->getVelocity().x < _maxVelocity.x)
-  //_parent->get_components<PhysicsComponent>()[0]->impulse(direction);
-  //_parent->get_components<PhysicsComponent>()[0]->impulse({ (float)(dt * _groundspeed), 0});
-  //_parent->get_components<PhysicsComponent>()[0]->setVelocity(Vector2f(normalize(direction) * speed));
+
+  if (isValidMove(pos+direction))
+  {
+	  move(normalize(direction) * _groundspeed * (float)dt);
+  }
 
 }
 

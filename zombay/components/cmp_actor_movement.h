@@ -6,6 +6,8 @@ class ActorMovementComponent : public Component {
 protected:
   bool validMove(const sf::Vector2f&);
   float _speed;
+  std::shared_ptr<Entity> _player;
+
 
 public:
   void update(double dt) override;

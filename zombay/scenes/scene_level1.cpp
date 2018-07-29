@@ -1,6 +1,8 @@
 #include "scene_level1.h"
 #include "../components/cmp_player_physics.h"
 #include "../components/cmp_sprite.h"
+#include "../components/cmp_ai_steering.h"
+#include "system_resources.h"
 #include "../game.h"
 #include <LevelSystem.h>
 #include <iostream>
@@ -10,6 +12,7 @@ using namespace std;
 using namespace sf;
 
 static shared_ptr<Entity> player;
+static 	vector<shared_ptr<Entity>> enemies;
 
 void Level1Scene::Load() {
   cout << " Scene 1 Load" << endl;
@@ -19,19 +22,25 @@ void Level1Scene::Load() {
   ls::setOffset(Vector2f(0, ho));
 
   player = create_player();
+  //enemies = create_enemies();
 
-  // Create player
-  /*{
-    player = makeEntity();
-    player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
-    auto s = player->addComponent<ShapeComponent>();
-    s->setShape<sf::RectangleShape>(Vector2f(20.f, 30.f));
-    s->getShape().setFillColor(Color::Magenta);
-    s->getShape().setOrigin(10.f, 15.f);
+  vector<shared_ptr<Entity>> enemies;
+  auto spawn_tiles = ls::findTiles(ls::START);
+  for (auto t : spawn_tiles)
+  {
+	  auto enemy = Engine::GetActiveScene()->makeEntity();
+	  enemy->setPosition(ls::getTilePosition(t) + Vector2f(ls::getTileSize() / 2, ls::getTileSize() / 2));
 
-    player->addComponent<PlayerPhysicsComponent>(Vector2f(20.f, 30.f));
+	  auto s = enemy->addComponent<SpriteComponent>();
+	  auto tex = Resources::get<Texture>("zombay.png");
+	  s->setTexture(tex);
+	  s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
+	  s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
+
+	  enemy->addComponent<SteeringComponent>(player.get());
+	  enemies.push_back(enemy);
   }
-  */
+
 
   // Add physics colliders to level tiles.
   {
@@ -61,9 +70,6 @@ void Level1Scene::UnLoad() {
 
 void Level1Scene::Update(const double& dt) {
 
-  if (ls::getTileAt(player->getPosition()) == ls::END) {
-    Engine::ChangeScene((Scene*)&menu);
-  }
   Scene::Update(dt);
 }
 

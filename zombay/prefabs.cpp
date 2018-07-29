@@ -7,6 +7,8 @@
 #include "components/cmp_sprite.h"
 #include "components/cmp_button.h"
 #include "components/cmp_player_physics.h"
+#include "components\cmp_actor_movement.h"
+#include "components\cmp_ai_steering.h"
 
 using namespace std;
 using namespace sf;
@@ -26,6 +28,27 @@ shared_ptr<Entity> create_player()
 	
 }
 
+/*vector<std::shared_ptr<Entity>> create_enemies()
+{
+	vector<shared_ptr<Entity>> enemies;
+	auto spawn_tiles = ls::findTiles(ls::START);
+	for (auto t : spawn_tiles)
+	{
+		auto enemy = Engine::GetActiveScene()->makeEntity();
+		enemy->setPosition(ls::getTilePosition(t) + Vector2f(ls::getTileSize() / 2, ls::getTileSize() / 2));
+		
+		auto s = enemy->addComponent<SpriteComponent>();
+		auto tex = Resources::get<Texture>("zombay.png");
+		s->setTexture(tex);
+		s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
+		s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
+
+		enemy->addComponent<SteeringComponent>();
+		enemies.push_back(enemy);
+	}
+	return enemies;
+}
+*/
 shared_ptr<Entity> create_button(string path)
 {
 	auto button = Engine::GetActiveScene()->makeEntity();
