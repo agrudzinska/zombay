@@ -58,6 +58,10 @@ void MenuScene::Load() {
 	  }
   }
 
+  _menubuffer = *(Resources::get<SoundBuffer>("menu2.wav"));
+  _menusound.setBuffer(_menubuffer);
+  _menusound.setLoop(true);
+  _menusound.play();
   Engine::GetWindow().setView(Engine::GetWindow().getDefaultView());
 
   setLoaded(true);
@@ -68,37 +72,47 @@ void MenuScene::Update(const double& dt) {
 	View view(FloatRect(0, 0, Engine::GetWindow().getSize().x, Engine::GetWindow().getSize().y));
 	Engine::GetWindow().setView(view);
 
-	if (_clickCooldown >= 0.0f) _clickCooldown -= dt;
-
-	//buffer.loadFromFile("boing_x.wav");
-	_buffer = *(Resources::get<SoundBuffer>("boing_x.wav"));
+	_buffer = *(Resources::get<SoundBuffer>("button2.wav"));
 	_sound.setBuffer(_buffer);
+
+	if (_clickCooldown >= 0.0f) _clickCooldown -= dt;
+	
 	if (_clickCooldown < 0.0f)
 	{
 		if (_btn_Start->get_components<ButtonComponent>()[0]->isSelected())
 		{
 			Engine::ChangeScene(&level1);
+			_sound.play();
+
 		}
 
 		if (_btn_HowTo->get_components<ButtonComponent>()[0]->isSelected())
 		{
 			Engine::ChangeScene(&howTo);
 			_sound.play();
-			
 
 		}
 
 		if (_btn_Options->get_components<ButtonComponent>()[0]->isSelected())
 		{
 			Engine::ChangeScene(&level1);
+			_sound.play();
+
 		}
 
 		if (_btn_Quit->get_components<ButtonComponent>()[0]->isSelected())
 		{
 			Engine::GetWindow().close();
+			_sound.play();
+
 		}
 	}
 
 	Scene::Update(dt);
 }
 
+void MenuScene::UnLoad() {
+	cout << "Menu Unload" << endl;
+	_menusound.stop();
+	Scene::UnLoad();
+}

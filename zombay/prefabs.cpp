@@ -22,6 +22,7 @@ shared_ptr<Entity> create_player()
 	s->setTexture(tex);
 	s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
 	s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
+	//player->addComponent<PhysicsComponent>(true, Vector2f(s->getSprite().getLocalBounds().width - 8, s->getSprite().getLocalBounds().height));
 	player->addComponent<PlayerPhysicsComponent>();
 
 	return player;

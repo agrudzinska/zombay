@@ -2,6 +2,7 @@
 #include "../components/cmp_player_physics.h"
 #include "../components/cmp_sprite.h"
 #include "../components/cmp_ai_steering.h"
+#include "../components/cmp_physics.h"
 #include "system_resources.h"
 #include "../game.h"
 #include <LevelSystem.h>
@@ -20,8 +21,8 @@ void Level1Scene::Load() {
 
   auto ho = Engine::getWindowSize().y - (ls::getHeight() * 40.f);
   ls::setOffset(Vector2f(0, ho));
-
-  player = create_player();
+  
+  _player = create_player();
   //enemies = create_enemies();
 
   vector<shared_ptr<Entity>> enemies;
@@ -36,10 +37,12 @@ void Level1Scene::Load() {
 	  s->setTexture(tex);
 	  s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
 	  s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
-
-	  enemy->addComponent<SteeringComponent>(player.get());
+	  //enemy->addComponent<PhysicsComponent>(true, Vector2f(s->getSprite().getLocalBounds().width - 8, s->getSprite().getLocalBounds().height));
+	  enemy->addComponent<SteeringComponent>(_player.get());
 	  enemies.push_back(enemy);
   }
+
+  _view_center = _player->getPosition();
 
 
   // Add physics colliders to level tiles.
@@ -50,7 +53,7 @@ void Level1Scene::Load() {
       pos += Vector2f(20.f, 20.f); //offset to center
       auto e = makeEntity();
       e->setPosition(pos);
-      e->addComponent<PhysicsComponent>(false, Vector2f(40.f, 40.f));
+      e->addComponent<PhysicsComponent>(false, Vector2f(ls::getTileSize(), ls::getTileSize()));
     }
   }
 
@@ -69,6 +72,15 @@ void Level1Scene::UnLoad() {
 }
 
 void Level1Scene::Update(const double& dt) {
+
+	View view(FloatRect(0, 0, Engine::GetWindow().getSize().x, Engine::GetWindow().getSize().y));
+
+	float view_player_distance = sqrt(((_player->getPosition().x - _view_center.x) * (_player->getPosition().x - _view_center.x)) + ((_player->getPosition().y - _view_center.y) * (_player->getPosition().y - _view_center.y)));
+	if (view_player_distance > 80.0f)
+		_view_center += (_player->getPosition() - _view_center) * (float)dt * 2.3f;
+	view.setCenter(_view_center);
+
+	Engine::GetWindow().setView(view);
 
   Scene::Update(dt);
 }

@@ -12,6 +12,8 @@ public:
 
   void Update(const double& dt) override;
 
+  void UnLoad() override;
+
 private:
 	std::shared_ptr<Entity> _btn_Start;
 	std::shared_ptr<Entity> _btn_HowTo;
@@ -21,7 +23,11 @@ private:
 	std::vector<std::shared_ptr<Entity>> _btns;
 
 	sf::Sound _sound;
+	sf::Music _music;
 	sf::SoundBuffer _buffer;
+	sf::Sound _menusound;
+	sf::SoundBuffer _menubuffer;
+
 
 	float _clickCooldown;
 };
