@@ -2,7 +2,6 @@
 #include "system_physics.h"
 #include <LevelSystem.h>
 #include <SFML/Window/Keyboard.hpp>
-#include "cmp_physics.h"
 #include "engine.h"
 #include "../prefabs.h"
 #include <iostream>
@@ -46,7 +45,6 @@ void PlayerPhysicsComponent::update(double dt) {
 
 PlayerPhysicsComponent::PlayerPhysicsComponent(Entity* p)
     : Component(p) {
-  _maxVelocity = Vector2f(200.f, 400.f);
   _groundspeed = 160.f;
 
 }

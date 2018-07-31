@@ -1,4 +1,5 @@
 #include "cmp_ai_steering.h"
+#include "LevelSystem.h"
 
 using namespace sf;
 
@@ -15,7 +16,8 @@ SteeringComponent::SteeringComponent(Entity* p, Entity* player)
 bool SteeringComponent::validMove(const sf::Vector2f& pos) const
 {
 	if (pos.x < 0.0f || pos.y > Engine::GetWindow().getSize().x ||
-		pos.y < 0.0f || pos.y > Engine::GetWindow().getSize().y)
+		pos.y < 0.0f || pos.y > Engine::GetWindow().getSize().y ||
+		ls::getTileAt(pos) == ls::WALL)
 	{
 		return false;
 	}

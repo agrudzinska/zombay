@@ -10,7 +10,7 @@ std::map<LevelSystem::Tile, sf::Color> LevelSystem::_colours{
 sf::Color LevelSystem::getColor(LevelSystem::Tile t) {
   auto it = _colours.find(t);
   if (it == _colours.end()) {
-    _colours[t] = Color(198, 218, 218);
+	 _colours[t] = Color(198, 218, 218);
   }
   return _colours[t];
 }

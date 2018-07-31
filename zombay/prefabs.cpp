@@ -8,6 +8,7 @@
 #include "components/cmp_button.h"
 #include "components/cmp_player_physics.h"
 #include "components\cmp_actor_movement.h"
+#include "components\cmp_physics.h"
 #include "components\cmp_ai_steering.h"
 
 using namespace std;

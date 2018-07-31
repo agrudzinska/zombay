@@ -10,4 +10,6 @@ HowToScene howTo;
 
 int main() {
   Engine::Start(1280, 720, "Zombay",&menu);
+  //Engine::Start(1024, 576, "Zombay", &menu);
+
 }

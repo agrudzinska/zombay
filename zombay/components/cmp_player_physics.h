@@ -1,11 +1,10 @@
 #pragma once
 
-#include "cmp_physics.h"
+#include "ecm.h"
 
 class PlayerPhysicsComponent : public Component {
 protected:
   float _groundspeed;
-  sf::Vector2f _maxVelocity;
 
 public:
   bool isValidMove(sf::Vector2f pos);

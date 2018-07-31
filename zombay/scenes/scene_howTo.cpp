@@ -26,6 +26,10 @@ void HowToScene::Load() {
 		(float)Engine::GetWindow().getSize().x / 2,
 		(float)Engine::GetWindow().getSize().y * float(0.75) });
 
+	_menubuffer = *(Resources::get<SoundBuffer>("menu_ambience.wav"));
+	_menusound.setBuffer(_menubuffer);
+	_menusound.setLoop(true);
+	_menusound.play();
 
 	Engine::GetWindow().setView(Engine::GetWindow().getDefaultView());
 
@@ -37,6 +41,9 @@ void HowToScene::Update(const double& dt) {
 	View view(FloatRect(0, 0, Engine::GetWindow().getSize().x, Engine::GetWindow().getSize().y));
 	Engine::GetWindow().setView(view);
 
+	_buffer = *(Resources::get<SoundBuffer>("back.wav"));
+	_sound.setBuffer(_buffer);
+
 	if (_clickCooldown >= 0.0f) _clickCooldown -= dt;
 
 	if (_clickCooldown < 0.0f)
@@ -44,6 +51,7 @@ void HowToScene::Update(const double& dt) {
 		if (_btn_back->get_components<ButtonComponent>()[0]->isSelected())
 		{
 			Engine::ChangeScene(&menu);
+			_sound.play();
 		}
 
 	}
@@ -51,3 +59,8 @@ void HowToScene::Update(const double& dt) {
 	Scene::Update(dt);
 }
 
+void HowToScene::UnLoad() {
+	cout << "HowTo Unload" << endl;
+	_menusound.stop();
+	Scene::UnLoad();
+}
