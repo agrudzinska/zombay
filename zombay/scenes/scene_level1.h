@@ -10,8 +10,8 @@ private:
 	sf::Vector2f _view_center;
 	sf::SoundBuffer _gamebuffer;
 	sf::Sound _gamesound;
-	std::array<std::shared_ptr<Entity>, 10> _enemies;
-
+	std::vector<std::shared_ptr<Entity>> _enemies;
+	sf::Clock clock;
 
 
 public:

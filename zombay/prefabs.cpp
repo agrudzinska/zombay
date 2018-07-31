@@ -30,12 +30,13 @@ shared_ptr<Entity> create_player()
 	
 }
 
-/*vector<std::shared_ptr<Entity>> create_enemies()
+vector<std::shared_ptr<Entity>> create_enemies(shared_ptr<Entity> p)
 {
-	vector<shared_ptr<Entity>> enemies;
+	vector<std::shared_ptr<Entity>> enemies;
 	auto spawn_tiles = ls::findTiles(ls::START);
 	for (auto t : spawn_tiles)
 	{
+
 		auto enemy = Engine::GetActiveScene()->makeEntity();
 		enemy->setPosition(ls::getTilePosition(t) + Vector2f(ls::getTileSize() / 2, ls::getTileSize() / 2));
 		
@@ -45,12 +46,12 @@ shared_ptr<Entity> create_player()
 		s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
 		s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
 
-		enemy->addComponent<SteeringComponent>();
+		enemy->addComponent<SteeringComponent>(p.get());
 		enemies.push_back(enemy);
 	}
 	return enemies;
 }
-*/
+
 shared_ptr<Entity> create_button(string path)
 {
 	auto button = Engine::GetActiveScene()->makeEntity();

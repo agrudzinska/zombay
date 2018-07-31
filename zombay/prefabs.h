@@ -5,7 +5,7 @@
 #include <string>
 
 std::shared_ptr<Entity> create_player();
-std::vector<std::shared_ptr<Entity>> create_enemies();
+std::vector<std::shared_ptr<Entity>> create_enemies(std::shared_ptr<Entity> p);
 //void create_walls();
 std::shared_ptr<Entity> create_button(std::string);
 //std::shared_ptr<Entity> create_game_ui();

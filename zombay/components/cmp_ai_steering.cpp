@@ -5,8 +5,15 @@ using namespace sf;
 
 void SteeringComponent::update(double dt)
 {
+	if (length(_parent->getPosition() - _player->getPosition()) < 20.0f)
+	{
+		_parent->setForDelete();
+	}
+	else
+	{
 		auto output = _seek.getSteering();
 		move(output.direction * (float)dt);
+	}
 }
 
 SteeringComponent::SteeringComponent(Entity* p, Entity* player)

@@ -21,26 +21,6 @@ void Level1Scene::Load() {
   ls::setOffset(Vector2f(0, ho));
   
   _player = create_player();
-  //enemies = create_enemies();
-
-  /*/PUT THIS IN UPDATE, KEEP THE PLAYER REFERENCE FOR AI
-  vector<shared_ptr<Entity>> enemies;
-  auto spawn_tiles = ls::findTiles(ls::START);
-  for (auto t : spawn_tiles)
-  {
-	  auto enemy = Engine::GetActiveScene()->makeEntity();
-	  enemy->setPosition(ls::getTilePosition(t) + Vector2f(ls::getTileSize() / 2, ls::getTileSize() / 2));
-
-	  auto s = enemy->addComponent<SpriteComponent>();
-	  auto tex = Resources::get<Texture>("zombay.png");
-	  s->setTexture(tex);
-	  s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
-	  s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
-	  //enemy->addComponent<PhysicsComponent>(true, Vector2f(s->getSprite().getLocalBounds().width - 8, s->getSprite().getLocalBounds().height));
-	  enemy->addComponent<SteeringComponent>(_player.get());
-	  enemies.push_back(enemy);
-  }
-  */
 
   _view_center = _player->getPosition();
 
@@ -66,6 +46,8 @@ void Level1Scene::Load() {
   _gamesound.setLoop(true);
   _gamesound.play();
 
+  clock.restart();
+
   setLoaded(true);
 }
 
@@ -77,26 +59,13 @@ void Level1Scene::UnLoad() {
 }
 
 void Level1Scene::Update(const double& dt) {
-
+	
+	cout << clock.getElapsedTime().asSeconds() << endl;
 	//PUT THIS IN UPDATE, KEEP THE PLAYER REFERENCE FOR AI
-	if (dt > 0.006)
+	if (clock.getElapsedTime().asSeconds()>1)
 	{
-		auto spawn_tiles = ls::findTiles(ls::START);
-		for (auto t : spawn_tiles)
-		{
-			auto enemy = Engine::GetActiveScene()->makeEntity();
-			enemy->setPosition(ls::getTilePosition(t) + Vector2f(ls::getTileSize() / 2, ls::getTileSize() / 2));
-
-			auto s = enemy->addComponent<SpriteComponent>();
-			auto tex = Resources::get<Texture>("zombay.png");
-			s->setTexture(tex);
-			s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
-			s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
-			//enemy->addComponent<PhysicsComponent>(true, Vector2f(s->getSprite().getLocalBounds().width - 8, s->getSprite().getLocalBounds().height));
-			enemy->addComponent<SteeringComponent>(_player.get());
-			//enemies.push_back(enemy);
-			_enemies.front() = enemy;
-		}
+		create_enemies(_player);
+		clock.restart();
 	}
 	View view(FloatRect(0, 0, Engine::GetWindow().getSize().x, Engine::GetWindow().getSize().y));
 

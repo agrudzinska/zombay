@@ -69,8 +69,6 @@ void MenuScene::Load() {
 
 void MenuScene::Update(const double& dt) {
 
-	cout << dt;
-
 	View view(FloatRect(0, 0, Engine::GetWindow().getSize().x, Engine::GetWindow().getSize().y));
 	Engine::GetWindow().setView(view);
 

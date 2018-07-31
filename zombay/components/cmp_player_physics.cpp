@@ -12,7 +12,7 @@ using namespace sf;
 using namespace Physics;
 
 bool PlayerPhysicsComponent::isValidMove(Vector2f pos) {
-	return (ls::getTileAt(pos) != ls::WALL);
+	return (ls::getTileAt(pos) != ls::WALL && ls::getTileAt(pos) != ls::START);
 }
 
 void PlayerPhysicsComponent::update(double dt) {
