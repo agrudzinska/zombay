@@ -21,7 +21,6 @@ void Level1Scene::Load() {
   ls::setOffset(Vector2f(0, ho));
   
   _player = create_player();
-
   _view_center = _player->getPosition();
 
 

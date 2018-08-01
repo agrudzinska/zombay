@@ -5,6 +5,7 @@
 class PlayerPhysicsComponent : public Component {
 protected:
   float _groundspeed;
+  sf::Vector2f _shootDirection;
 
 public:
   bool isValidMove(sf::Vector2f pos);
