@@ -1,5 +1,6 @@
 #include "cmp_ai_steering.h"
 #include "LevelSystem.h"
+#include "../game.h"
 
 using namespace sf;
 
@@ -7,7 +8,9 @@ void SteeringComponent::update(double dt)
 {
 	if (length(_parent->getPosition() - _player->getPosition()) < 20.0f)
 	{
-		_parent->setForDelete();
+		_player->setForDelete();
+		Engine::GetActiveScene()->UnLoad();
+		Engine::ChangeScene(&gameOver);
 	}
 	else
 	{
@@ -16,8 +19,8 @@ void SteeringComponent::update(double dt)
 	}
 }
 
-SteeringComponent::SteeringComponent(Entity* p, Entity* player)
-	: _player(player), _seek(Seek(p, player, 100.f)),
+SteeringComponent::SteeringComponent(Entity* p, Entity* player, float maxSpeed)
+	: _player(player), _seek(Seek(p, player, maxSpeed)),
 	   Component(p) {}
 
 bool SteeringComponent::validMove(const sf::Vector2f& pos) const

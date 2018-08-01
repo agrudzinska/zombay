@@ -7,6 +7,7 @@ using namespace std;
 MenuScene menu;
 Level1Scene level1;
 HowToScene howTo;
+GameOverScene gameOver;
 
 int main() {
   Engine::Start(1280, 720, "Zombay",&menu);

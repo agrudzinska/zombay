@@ -46,7 +46,9 @@ void Level1Scene::Load() {
   _gamesound.setLoop(true);
   _gamesound.play();
 
-  clock.restart();
+  clock1.restart();
+  clock2.restart();
+  clock3.restart();
 
   setLoaded(true);
 }
@@ -54,20 +56,30 @@ void Level1Scene::Load() {
 void Level1Scene::UnLoad() {
   cout << "Scene 1 Unload" << endl;
   _player.reset();
+  _gamesound.stop();
   ls::unload();
   Scene::UnLoad();
 }
 
 void Level1Scene::Update(const double& dt) {
 	
-	cout << clock.getElapsedTime().asSeconds() << endl;
-	//PUT THIS IN UPDATE, KEEP THE PLAYER REFERENCE FOR AI
-	if (clock.getElapsedTime().asSeconds()>1)
+	//Spawn multiple enemies 
+	if (clock1.getElapsedTime().asSeconds()>2)
 	{
-		create_enemies(_player);
-		clock.restart();
+		create_enemies1(_player);
+		clock1.restart();
 	}
-	View view(FloatRect(0, 0, Engine::GetWindow().getSize().x, Engine::GetWindow().getSize().y));
+	if (clock2.getElapsedTime().asSeconds()>3.5)
+	{
+		create_enemies2(_player);
+		clock2.restart();
+	}
+	if (clock3.getElapsedTime().asSeconds()>8.3)
+	{
+		create_enemies3(_player);
+		clock3.restart();
+	}
+	View view(FloatRect(0, 0, Engine::GetWindow().getSize().x / 2, Engine::GetWindow().getSize().y / 2));
 
 	float view_player_distance = sqrt(((_player->getPosition().x - _view_center.x) * (_player->getPosition().x - _view_center.x)) + ((_player->getPosition().y - _view_center.y) * (_player->getPosition().y - _view_center.y)));
 	if (view_player_distance > 80.0f)

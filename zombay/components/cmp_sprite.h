@@ -15,7 +15,7 @@ public:
 	SpriteComponent() = delete;
 
 	explicit SpriteComponent(Entity* p);
-	//explicit SpriteComponent(Entity* p, const std::string& str = "");
+/*	explicit SpriteComponent(Entity* p, const std::string& str = "");*/
 	void update(double dt) override;
 	void render() override;
 

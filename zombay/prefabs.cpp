@@ -30,7 +30,7 @@ shared_ptr<Entity> create_player()
 	
 }
 
-vector<std::shared_ptr<Entity>> create_enemies(shared_ptr<Entity> p)
+vector<std::shared_ptr<Entity>> create_enemies1(shared_ptr<Entity> p)
 {
 	vector<std::shared_ptr<Entity>> enemies;
 	auto spawn_tiles = ls::findTiles(ls::START);
@@ -46,7 +46,51 @@ vector<std::shared_ptr<Entity>> create_enemies(shared_ptr<Entity> p)
 		s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
 		s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
 
-		enemy->addComponent<SteeringComponent>(p.get());
+		enemy->addComponent<SteeringComponent>(p.get(), 120.f);
+		enemies.push_back(enemy);
+	}
+	return enemies;
+}
+
+vector<std::shared_ptr<Entity>> create_enemies2(shared_ptr<Entity> p)
+{
+	vector<std::shared_ptr<Entity>> enemies;
+	auto spawn_tiles = ls::findTiles(ls::START);
+	for (auto t : spawn_tiles)
+	{
+
+		auto enemy = Engine::GetActiveScene()->makeEntity();
+		enemy->setPosition(ls::getTilePosition(t) + Vector2f(ls::getTileSize() / 2, ls::getTileSize() / 2));
+
+		auto s = enemy->addComponent<SpriteComponent>();
+		auto tex = Resources::get<Texture>("zombay2.png");
+		s->setTexture(tex);
+		s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
+		s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
+
+		enemy->addComponent<SteeringComponent>(p.get(), 100.f);
+		enemies.push_back(enemy);
+	}
+	return enemies;
+}
+
+vector<std::shared_ptr<Entity>> create_enemies3(shared_ptr<Entity> p)
+{
+	vector<std::shared_ptr<Entity>> enemies;
+	auto spawn_tiles = ls::findTiles(ls::START);
+	for (auto t : spawn_tiles)
+	{
+
+		auto enemy = Engine::GetActiveScene()->makeEntity();
+		enemy->setPosition(ls::getTilePosition(t) + Vector2f(ls::getTileSize() / 2, ls::getTileSize() / 2));
+
+		auto s = enemy->addComponent<SpriteComponent>();
+		auto tex = Resources::get<Texture>("zombay3.png");
+		s->setTexture(tex);
+		s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
+		s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
+
+		enemy->addComponent<SteeringComponent>(p.get(), 80.f);
 		enemies.push_back(enemy);
 	}
 	return enemies;
