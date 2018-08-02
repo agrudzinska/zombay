@@ -22,7 +22,7 @@ void HowToScene::Load() {
 	s->setPosition({ (float)Engine::GetWindow().getSize().x / 3, (float)Engine::GetWindow().getSize().y /6 });
 
 	auto txt = makeEntity();
-	auto t = txt->addComponent<TextComponent>("Kill as many zombies as possible.\nUse arrows to move around, press space to shoot.");
+	auto t = txt->addComponent<TextComponent>("Kill as many zombies as possible.\nUse WASD to move around, mouse to aim, press space to shoot.");
 	t->getText()->setFillColor(Color::White);
 	t->getText()->setPosition({ (float)Engine::GetWindow().getSize().x / 4, (float)Engine::GetWindow().getSize().y / 2 });
 

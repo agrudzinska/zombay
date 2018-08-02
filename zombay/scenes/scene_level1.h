@@ -11,6 +11,7 @@ private:
 	sf::SoundBuffer _gamebuffer;
 	sf::Sound _gamesound;
 	std::vector<std::shared_ptr<Entity>> _enemies;
+	std::vector<std::shared_ptr<Entity>> _bullets;
 	sf::Clock clock1;
 	sf::Clock clock2;
 	sf::Clock clock3;

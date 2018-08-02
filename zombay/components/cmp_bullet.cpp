@@ -2,20 +2,32 @@
 #include "cmp_sprite.h"
 #include "maths.h"
 #include "LevelSystem.h"
+#include "system_physics.h"
 using namespace std;
 using namespace sf;
 
 void BulletComponent::update(double dt) {
 	_parent->get_components<PhysicsComponent>()[0]->setVelocity(_direction * _maxSpeed);
-	auto pos = _owner->getPosition();
-	auto new_pos = pos + _direction;
-	//if (validMove(new_pos))
-		//_parent->get_components<PhysicsComponent>()[0]->setVelocity(_direction * _maxSpeed);
-		//move(new_pos*_direction*_maxSpeed);
-		//_parent->setPosition(new_pos);
 	
-	//move(normalize(_direction) * _maxSpeed * (float)dt);
+	/*auto touching = _parent->get_components<PhysicsComponent>()[0]->getTouching();
+	if (touching.size() > 0)
+	{
+		for (auto t : touching)
+		{
+			if (t->GetFixtureA() != _owner->get_components<PhysicsComponent>()[0]->getFixture())
+			{
+				_parent->setForDelete();
+			}
+		}
+	}*/
 
+	if (_owner->is_fordeletion()) _parent->setForDelete();
+	auto pos = _parent->getPosition();
+	if (!validMove(pos))
+	{
+		_parent->setForDelete();
+	}
+	
 }
 
 bool BulletComponent::validMove(const sf::Vector2f& pos) const

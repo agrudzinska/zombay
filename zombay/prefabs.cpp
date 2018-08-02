@@ -116,24 +116,3 @@ shared_ptr<Entity> create_button(string path)
 
 	return button;
 }
-
-shared_ptr<Entity> create_player_bullet(Vector2f direction)
-{
-	auto bullet = Engine::GetActiveScene()->makeEntity();
-	auto player = Engine::GetActiveScene()->ents.find("player")[0];
-	Vector2f pos = player->getPosition() + (33.0f * direction);
-	bullet->setPosition(pos);
-
-	auto s = bullet->addComponent<SpriteComponent>();
-	auto tex = Resources::get<Texture>("bullet.png");
-	s->setTexture(tex);
-	s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
-	s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
-	
-	auto p = bullet->addComponent<PhysicsComponent>(true, Vector2f(1.0f, 1.0f));
-
-	direction.y *= -1;
-	auto b = bullet->addComponent<BulletComponent>(&(*player), normalize(direction), 100.f);
-
-	return bullet;
-}

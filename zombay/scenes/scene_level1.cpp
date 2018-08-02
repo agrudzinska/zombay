@@ -25,7 +25,7 @@ void Level1Scene::Load() {
 
 
   // Add physics colliders to level tiles.
-  {
+  /*{
     auto walls = ls::findTiles(ls::WALL);
     for (auto w : walls) {
       auto pos = ls::getTilePosition(w);
@@ -34,7 +34,7 @@ void Level1Scene::Load() {
       e->setPosition(pos);
       e->addComponent<PhysicsComponent>(false, Vector2f(ls::getTileSize(), ls::getTileSize()));
     }
-  }
+  }*/
 
   //Simulate long loading times
   std::this_thread::sleep_for(std::chrono::milliseconds(3000));
@@ -61,7 +61,6 @@ void Level1Scene::UnLoad() {
 }
 
 void Level1Scene::Update(const double& dt) {
-	
 	//Spawn multiple enemies 
 	if (clock1.getElapsedTime().asSeconds()>2)
 	{

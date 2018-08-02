@@ -26,16 +26,16 @@ void PlayerPhysicsComponent::update(double dt) {
 
   Vector2f direction = { 0.0f, 0.0f };
   //handle controls
-  if (Keyboard::isKeyPressed(Keyboard::Left)) {
+  if (Keyboard::isKeyPressed(Keyboard::A)) {
 	  direction.x -= 1.0f;
   }
-  if (Keyboard::isKeyPressed(Keyboard::Right)) {
+  if (Keyboard::isKeyPressed(Keyboard::D)) {
 	  direction.x += 1.0f;
   }
-  if (Keyboard::isKeyPressed(Keyboard::Up)) {
+  if (Keyboard::isKeyPressed(Keyboard::W)) {
 	  direction.y -= 1.0f;
   }
-  if (Keyboard::isKeyPressed(Keyboard::Down)) {
+  if (Keyboard::isKeyPressed(Keyboard::S)) {
 	  direction.y += 1.0f;
   }
 
@@ -44,17 +44,12 @@ void PlayerPhysicsComponent::update(double dt) {
 	  move(normalize(direction) * _groundspeed * (float)dt);
   }
 
-  if (direction != Vector2f(0.0, 0.0f))
-  {
-	  _shootDirection = direction;
-	  _shootDirection.y *= -1;
-  }
-  
-  //_shootDirection = Vector2f(Mouse::getPosition());
 
-  if (Keyboard::isKeyPressed(Keyboard::Space)) {
+
+  if (Keyboard::isKeyPressed(Keyboard::Space) && _shootCooldown <= 0.0f) {
+	  
 	  auto bullet = Engine::GetActiveScene()->makeEntity();
-	  //bullet->setPosition(pos);
+	  bullet->setPosition(pos);
 	  bullet->setPosition(pos+(33.0f * direction));
 	  auto s = bullet->addComponent<SpriteComponent>();
 	  auto tex = Resources::get<Texture>("bullet.png");
@@ -63,19 +58,34 @@ void PlayerPhysicsComponent::update(double dt) {
 	  s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2 , s->getSprite().getLocalBounds().height / 2 );
 
 	  auto p = bullet->addComponent<PhysicsComponent>(true, Vector2f(1.0f, 1.0f));
+	  p->getBody()->SetBullet(true);
+	  
+	  Vector2f mousePos = Vector2f(Mouse::getPosition(Engine::GetWindow()));
+	  Vector2f currPos = pos + (33.0f * direction);
+	  _shootDirection = mousePos - currPos;
+	  _shootDirection.y *= -1;
 
-	  auto b = bullet->addComponent<BulletComponent>(_parent, _shootDirection, 300.f);
+
+	  auto b = bullet->addComponent<BulletComponent>(_parent, normalize(_shootDirection), 600.f);
+	  _bullets.push_back(bullet);
 	  b->update(dt);
 	  
-	  //create_player_bullet(normalize(_shootDirection));
+	  _shootCooldown = 0.5f;
   }
+  if (_shootCooldown > 0.0f) _shootCooldown -= dt;
 
 
+}
+std::vector<std::shared_ptr<Entity>> PlayerPhysicsComponent::getBullets()
+{
+	return _bullets;
 }
 
 PlayerPhysicsComponent::PlayerPhysicsComponent(Entity* p)
     : Component(p) {
   _groundspeed = 160.f;
+  _shootCooldown = 0.0f;
+  _shootDirection = { 1.0f, 0.0f };
 
 }
 
