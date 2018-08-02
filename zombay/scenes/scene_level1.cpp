@@ -62,17 +62,17 @@ void Level1Scene::UnLoad() {
 
 void Level1Scene::Update(const double& dt) {
 	//Spawn multiple enemies 
-	if (clock1.getElapsedTime().asSeconds()>2)
+	if (clock1.getElapsedTime().asSeconds()>4)
 	{
 		create_enemies1(_player);
 		clock1.restart();
 	}
-	if (clock2.getElapsedTime().asSeconds()>3.5)
+	if (clock2.getElapsedTime().asSeconds()>7)
 	{
 		create_enemies2(_player);
 		clock2.restart();
 	}
-	if (clock3.getElapsedTime().asSeconds()>8.3)
+	if (clock3.getElapsedTime().asSeconds()>10.3)
 	{
 		create_enemies3(_player);
 		clock3.restart();

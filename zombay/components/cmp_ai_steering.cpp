@@ -6,20 +6,23 @@ using namespace sf;
 
 void SteeringComponent::update(double dt)
 {
-	
-			if (length(_parent->getPosition() - _player->getPosition()) < 20.0f)
-			{
-				//_parent->setForDelete();
-				_player->setForDelete();
-				Engine::GetActiveScene()->UnLoad();
-				Engine::ChangeScene(&gameOver);
+	auto output = _seek.getSteering();
+	move(output.direction * (float)dt);
 
-			}
-	else
+	if (length(_parent->getPosition() - _player->getPosition()) < 20.0f)
 	{
-		auto output = _seek.getSteering();
-		move(output.direction * (float)dt);
-	}	
+		//_parent->setForDelete();
+		_player->setForDelete();
+		Engine::GetActiveScene()->UnLoad();
+		Engine::ChangeScene(&gameOver);
+
+	}
+
+	for(auto b : Engine::GetActiveScene()->ents.find("bullet"))
+			if (length(_parent->getPosition() - b->getPosition()) < 20.0f) {
+				_parent->setForDelete();
+				b->setForDelete();
+			}	
 }
 SteeringComponent::SteeringComponent(Entity* p, Entity* player, float maxSpeed)
 	: _player(player), _seek(Seek(p, player, maxSpeed)),

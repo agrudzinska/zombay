@@ -70,25 +70,6 @@ target_link_libraries(zombay lib_engine)
 #set_target_properties(zombay PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration))
 set(EXECUTABLES ${EXECUTABLES} zombay)
 
-
-## 6 - Platformer
-file(GLOB_RECURSE SOURCES practical_6_platformer/*.cpp practical_6_platformer/*.h)
-file(GLOB_RECURSE CMPNTS practical_6_platformer/components/*.cpp practical_6_platformer/components/*.h)
-file(GLOB_RECURSE SCENES practical_6_platformer/scenes/*.cpp practical_6_platformer/scenes/*.h)
-add_executable(PRACTICAL_6_PLATFORMER ${SOURCES} ${RESOURCE_FILES})
-source_group("components" FILES ${CMPNTS})
-source_group("resources" FILES ${RESOURCE_FILES})
-#target_include_directories(PRACTICAL_6_PLATFORMER SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
-target_link_libraries(PRACTICAL_6_PLATFORMER lib_engine)
-set(EXECUTABLES ${EXECUTABLES} PRACTICAL_6_PLATFORMER)
-
-
-## 9 - Deployment
-file(GLOB_RECURSE SOURCES practical_9_deployment/*.cpp practical_9_deployment/*.h)
-add_executable(PRACTICAL_9_DEPLOY ${SOURCES} ${RESOURCE_FILES})
-target_link_libraries(PRACTICAL_9_DEPLOY lib_engine)
-set(EXECUTABLES ${EXECUTABLES} PRACTICAL_9_DEPLOY)
-
 #### Target for copying resources to build dir####
 if(APPLE)
   add_custom_target(copy_resources ALL

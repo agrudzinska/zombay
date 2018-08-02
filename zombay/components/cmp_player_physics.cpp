@@ -44,13 +44,24 @@ void PlayerPhysicsComponent::update(double dt) {
 	  move(normalize(direction) * _groundspeed * (float)dt);
   }
 
+  _shootBuffer = *(Resources::get<SoundBuffer>("shot.wav"));
+  _shootSound.setBuffer(_shootBuffer);
+  _shootSound.setVolume(100);
 
-
+  /*if (direction != Vector2f(0.0, 0.0f))
+  {
+	  _shootDirection = direction;
+	  _shootDirection.y *= -1;
+  }*/
+	Vector2f mousePos = Vector2f(Mouse::getPosition(Engine::GetWindow()));
+	//Vector2f currPos = pos + (33.0f * direction);
+	_shootDirection = mousePos - pos;
   if (Keyboard::isKeyPressed(Keyboard::Space) && _shootCooldown <= 0.0f) {
 	  
 	  auto bullet = Engine::GetActiveScene()->makeEntity();
+	  bullet->addTag("bullet");
 	  bullet->setPosition(pos);
-	  bullet->setPosition(pos+(33.0f * direction));
+	  //bullet->setPosition(pos+(33.0f * direction));
 	  auto s = bullet->addComponent<SpriteComponent>();
 	  auto tex = Resources::get<Texture>("bullet.png");
 	  s->setTexture(tex);
@@ -60,26 +71,21 @@ void PlayerPhysicsComponent::update(double dt) {
 	  auto p = bullet->addComponent<PhysicsComponent>(true, Vector2f(1.0f, 1.0f));
 	  p->getBody()->SetBullet(true);
 	  
-	  Vector2f mousePos = Vector2f(Mouse::getPosition(Engine::GetWindow()));
-	  Vector2f currPos = pos + (33.0f * direction);
-	  _shootDirection = mousePos - currPos;
+	  
 	  _shootDirection.y *= -1;
 
 
 	  auto b = bullet->addComponent<BulletComponent>(_parent, normalize(_shootDirection), 600.f);
 	  _bullets.push_back(bullet);
 	  b->update(dt);
-	  
-	  _shootCooldown = 0.5f;
+	  _shootSound.play();
+	  _shootCooldown = 0.4f;
   }
   if (_shootCooldown > 0.0f) _shootCooldown -= dt;
 
 
 }
-std::vector<std::shared_ptr<Entity>> PlayerPhysicsComponent::getBullets()
-{
-	return _bullets;
-}
+
 
 PlayerPhysicsComponent::PlayerPhysicsComponent(Entity* p)
     : Component(p) {

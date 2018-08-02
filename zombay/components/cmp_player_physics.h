@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ecm.h"
+#include <SFML\Audio.hpp>
 
 class PlayerPhysicsComponent : public Component {
 protected:
@@ -9,7 +10,8 @@ protected:
   float _shootCooldown;
   Entity* _playerShootCooldownTimerUI;
   std::vector<std::shared_ptr<Entity>> _bullets;
-
+  sf::SoundBuffer _shootBuffer;
+  sf::Sound _shootSound;
 
 public:
   bool isValidMove(sf::Vector2f pos);
