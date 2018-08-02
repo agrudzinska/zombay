@@ -54,12 +54,15 @@ void PlayerPhysicsComponent::update(double dt) {
 
   if (Keyboard::isKeyPressed(Keyboard::Space)) {
 	  auto bullet = Engine::GetActiveScene()->makeEntity();
+	  //bullet->setPosition(pos);
 	  bullet->setPosition(pos+(33.0f * direction));
 	  auto s = bullet->addComponent<SpriteComponent>();
 	  auto tex = Resources::get<Texture>("bullet.png");
 	  s->setTexture(tex);
 	  s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
 	  s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2 , s->getSprite().getLocalBounds().height / 2 );
+
+	  auto p = bullet->addComponent<PhysicsComponent>(true, Vector2f(1.0f, 1.0f));
 
 	  auto b = bullet->addComponent<BulletComponent>(_parent, _shootDirection, 300.f);
 	  b->update(dt);

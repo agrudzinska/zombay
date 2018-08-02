@@ -8,9 +8,11 @@ void SteeringComponent::update(double dt)
 {
 	if (length(_parent->getPosition() - _player->getPosition()) < 20.0f)
 	{
+		//_parent->setForDelete();
 		_player->setForDelete();
 		Engine::GetActiveScene()->UnLoad();
 		Engine::ChangeScene(&gameOver);
+		
 	}
 	else
 	{
