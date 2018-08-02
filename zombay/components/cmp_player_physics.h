@@ -18,8 +18,6 @@ public:
   void update(double dt) override;
   void render() override {};
   explicit PlayerPhysicsComponent(Entity* p);
-  //bool isValidMove(const sf::Vector2f&);
   void move(const sf::Vector2f&);
   PlayerPhysicsComponent() = delete;
-  std::vector<std::shared_ptr<Entity>> getBullets();
 };

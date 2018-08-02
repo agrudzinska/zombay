@@ -8,18 +8,6 @@ using namespace sf;
 
 void BulletComponent::update(double dt) {
 	_parent->get_components<PhysicsComponent>()[0]->setVelocity(_direction * _maxSpeed);
-	
-	/*auto touching = _parent->get_components<PhysicsComponent>()[0]->getTouching();
-	if (touching.size() > 0)
-	{
-		for (auto t : touching)
-		{
-			if (t->GetFixtureA() != _owner->get_components<PhysicsComponent>()[0]->getFixture())
-			{
-				_parent->setForDelete();
-			}
-		}
-	}*/
 
 	if (_owner->is_fordeletion()) _parent->setForDelete();
 	auto pos = _parent->getPosition();

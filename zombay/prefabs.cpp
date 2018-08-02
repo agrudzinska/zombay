@@ -47,7 +47,7 @@ vector<std::shared_ptr<Entity>> create_enemies1(shared_ptr<Entity> p)
 		s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
 		s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
 
-		enemy->addComponent<SteeringComponent>(p.get(), 120.f);
+		enemy->addComponent<SteeringComponent>(p.get(), 100.f, false);
 		enemies.push_back(enemy);
 	}
 	return enemies;
@@ -69,7 +69,7 @@ vector<std::shared_ptr<Entity>> create_enemies2(shared_ptr<Entity> p)
 		s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
 		s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
 
-		enemy->addComponent<SteeringComponent>(p.get(), 100.f);
+		enemy->addComponent<SteeringComponent>(p.get(), 80.f, true);
 		enemies.push_back(enemy);
 	}
 	return enemies;
@@ -91,7 +91,7 @@ vector<std::shared_ptr<Entity>> create_enemies3(shared_ptr<Entity> p)
 		s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
 		s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
 
-		enemy->addComponent<SteeringComponent>(p.get(), 80.f);
+		enemy->addComponent<SteeringComponent>(p.get(), 60.f, true);
 		enemies.push_back(enemy);
 	}
 	return enemies;

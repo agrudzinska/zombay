@@ -6,26 +6,40 @@ using namespace sf;
 
 void SteeringComponent::update(double dt)
 {
-	auto output = _seek.getSteering();
-	move(output.direction * (float)dt);
-
+	if (!_jump)
+	{
+		auto output = _seek.getSteering();
+		move(output.direction * (float)dt);
+	}
+	else
+	{
+		auto output = _seek.getSteering();
+		if(length(_parent->getPosition() - _player->getPosition()) < 150.0f && 
+			length(_parent->getPosition() - _player->getPosition()) > 20.0f)
+			move(output.direction * (float)dt * float(2));
+		else
+		{
+			move(output.direction * (float)dt);
+		}
+	}
+	//player dies on contact with enemy zombie
 	if (length(_parent->getPosition() - _player->getPosition()) < 20.0f)
 	{
-		//_parent->setForDelete();
 		_player->setForDelete();
 		Engine::GetActiveScene()->UnLoad();
 		Engine::ChangeScene(&gameOver);
 
 	}
-
+	//zombie dies on contact with player's bullets
 	for(auto b : Engine::GetActiveScene()->ents.find("bullet"))
 			if (length(_parent->getPosition() - b->getPosition()) < 20.0f) {
 				_parent->setForDelete();
 				b->setForDelete();
 			}	
 }
-SteeringComponent::SteeringComponent(Entity* p, Entity* player, float maxSpeed)
-	: _player(player), _seek(Seek(p, player, maxSpeed)),
+
+SteeringComponent::SteeringComponent(Entity* p, Entity* player, float maxSpeed, bool jump)
+	: _player(player), _seek(Seek(p, player, maxSpeed, jump)),
 	   Component(p) {}
 
 bool SteeringComponent::validMove(const sf::Vector2f& pos) const

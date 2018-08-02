@@ -28,10 +28,11 @@ private:
 	Entity* _character;
 	Entity* _target;
 	float _maxSpeed;
+	bool _jump;
 	
 public:
 	Seek() = delete;
-	Seek(Entity* character, Entity* target, float maxSpeed)
-		: _character(character), _target(target), _maxSpeed(maxSpeed) {}
+	Seek(Entity* character, Entity* target, float maxSpeed, bool jump)
+		: _character(character), _target(target), _maxSpeed(maxSpeed), _jump(jump) {}
 	SteeringOutput getSteering() const noexcept;
 };
