@@ -8,7 +8,6 @@ class SteeringComponent : public Component
 protected:
 	Seek _seek;
 	Entity* _player;
-	std::vector<std::shared_ptr<Entity>> _bullets;
 	float _maxSpeed;
 	bool validMove(const sf::Vector2f&) const;
 	bool _jump;

@@ -6,7 +6,7 @@ using namespace sf;
 
 void SteeringComponent::update(double dt)
 {
-	if (!_jump)
+	if (_jump == false)
 	{
 		auto output = _seek.getSteering();
 		move(output.direction * (float)dt);

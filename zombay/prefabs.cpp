@@ -24,7 +24,6 @@ shared_ptr<Entity> create_player()
 	s->setTexture(tex);
 	s->getSprite().setTextureRect(sf::IntRect(0, 0, 32, 32));
 	s->getSprite().setOrigin(s->getSprite().getLocalBounds().width / 2, s->getSprite().getLocalBounds().height / 2);
-	//player->addComponent<PhysicsComponent>(true, Vector2f(s->getSprite().getLocalBounds().width - 8, s->getSprite().getLocalBounds().height));
 	player->addComponent<PlayerPhysicsComponent>();
 
 	return player;
@@ -110,7 +109,6 @@ shared_ptr<Entity> create_button(string path)
 	sp->setTexture(img);
 	sp->getSprite().setTextureRect(sf::IntRect(0, 0, 300, 102));
 	sp->getSprite().setOrigin(sp->getSprite().getLocalBounds().width / 2, sp->getSprite().getLocalBounds().height / 2);
-	//t->getText()->setOrigin(s->getShape().getLocalBounds().width / 2, s->getShape().getLocalBounds().height / 2);
 
 	button->addComponent<ButtonComponent>(s, sp);
 

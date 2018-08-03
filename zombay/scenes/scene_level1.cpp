@@ -23,19 +23,6 @@ void Level1Scene::Load() {
   _player = create_player();
   _view_center = _player->getPosition();
 
-
-  // Add physics colliders to level tiles.
-  /*{
-    auto walls = ls::findTiles(ls::WALL);
-    for (auto w : walls) {
-      auto pos = ls::getTilePosition(w);
-      pos += Vector2f(20.f, 20.f); //offset to center
-      auto e = makeEntity();
-      e->setPosition(pos);
-      e->addComponent<PhysicsComponent>(false, Vector2f(ls::getTileSize(), ls::getTileSize()));
-    }
-  }*/
-
   //Simulate long loading times
   std::this_thread::sleep_for(std::chrono::milliseconds(3000));
   cout << " Scene 1 Load Done" << endl;
@@ -45,6 +32,7 @@ void Level1Scene::Load() {
   _gamesound.setLoop(true);
   _gamesound.play();
 
+  //create timers for spawning enemies
   clock1.restart();
   clock2.restart();
   clock3.restart();
@@ -77,6 +65,7 @@ void Level1Scene::Update(const double& dt) {
 		create_enemies3(_player);
 		clock3.restart();
 	}
+	//set the camera following the player
 	View view(FloatRect(0, 0, Engine::GetWindow().getSize().x / 2, Engine::GetWindow().getSize().y / 2));
 
 	float view_player_distance = sqrt(((_player->getPosition().x - _view_center.x) * (_player->getPosition().x - _view_center.x)) + ((_player->getPosition().y - _view_center.y) * (_player->getPosition().y - _view_center.y)));
