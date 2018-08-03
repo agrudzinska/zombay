@@ -1,9 +1,13 @@
 # zombay
 
-Instructions to build the repo \n
-Clone \n
-Run the command  \n 
+##Instructions to build the repo
+
+Clone 
+
+Run the command  
+
 git submodule update --init --recursive
+
 
 Use CMake to generate a Visual Studio project
 
